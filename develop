@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+npm run gulp watch &
+cd dist; python -m http.server &> /dev/null

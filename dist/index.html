@@ -1,0 +1,243 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>Analysing Policy Scenarios</title>
+
+    <script src="./lib/rivets/dist/rivets.bundled.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./lib/foundation/css/foundation.css">
+    <link rel="stylesheet" type="text/css" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="./lib/fontawesome/css/font-awesome.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="./stylesheets/brandbar.css" />
+    <link rel="stylesheet" type="text/css" href="./stylesheets/app.css" />
+  </head>
+
+  <body>
+    <script>
+      function anyIE() {
+      var ua = window.navigator.userAgent;
+
+      var msie = ua.indexOf('MSIE ');
+      if (msie > 0)
+      return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+
+      var trident = ua.indexOf('Trident/');
+      if (trident > 0) {
+      var rv = ua.indexOf('rv:');
+      return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+      }
+
+      var edge = ua.indexOf('Edge/');
+      if (edge > 0)
+      return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+
+      return false;
+      }
+
+      if (anyIE()) window.location = './not-supported.html'
+    </script>
+
+    <div id="brand-bar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="brandbar-header">
+        <div class="row">
+          <div class="col-md-3">
+            <a id="navLanChg" class="navbar-brand" href="http://www.un.org/en/index.html">Welcome to the United Nations</a>
+          </div>
+
+          <div class="col-md-9">
+            <a class="site-link" href="https://unite.un.org/analytics/desa/modellingtools">Back to DESA Modelling Tools Homepage
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row header-row">
+      <header id="header-title">
+        <div class="navbar-header">
+          <div class="col-md-10">
+            <img src="images/logos/logo.png" alt="Home" class="noprint" />
+            <a id="Title" class="name navbar-brand" href="#" title="Home">Analysing Policy Scenarios</a>
+          </div>
+
+          <div class="col-md-2" style="text-align:right">
+            <span id="leave" class="fa fa-arrow-circle-left fa-3x menu-button"></span>
+            <span id="guide" class="fa fa-question-circle fa-3x menu-button"></span>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <div id="dashboard">
+      <div class="row first-row" rv-show="year">
+        <div class="col-md-3 col-lg-3 sec-center">
+          <form id="selectors" role="form" style="padding-top:5vh">
+            <div class="row row-selector">
+              <label> Recycling a Fuel Tax to </label>
+
+              <div class="form-group form-inline" style="display:inline-block;">
+                <select id="scenario-choice" name="scenario">
+                  <option rv-each-s="scenarios" rv-value="s.scn">{{ s.scenario }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row row-selector">
+              <label> Impact on : </label>
+
+              <div class="form-group">
+                <select id="indicator-choice" name="indicator">
+                  <option rv-each-i="indicators" rv-value="i.ind">{{ i.indicator }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row row-selector">
+              <label> in </label>
+              <div class="form-group">
+                <select id="country-choice" name="country">
+                  <option rv-each-c="countries" rv-value="c.cnt">{{ c.country }}</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="col-md-6 col-lg-6">
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                Impact on <span class="span-blue" rv-text="g.current_indicator | long"></span> in base & policy scenarios
+              </h3>
+            </div>
+
+            <div class="panel-body">
+              <div id="area-graph" class="chart-div"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-lg-3">
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                Percent change in <span class="span-blue" rv-text="g.current_indicator | long"></span> over base in <span class="span-blue" rv-text="g.current_year"></span>
+              </h3>
+            </div>
+
+            <div class="panel-body">
+              <div id="diffbar-graph" class="chart-div"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+          <div class="panel">
+            <div class="panel-body" style="text-align:center;">
+              <p class="p-panel">To give a sense of trade-offs and synergies, the plots below show the impact of simulated policy (with respect to the base line) from three different perspectives.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 col-lg-4">
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                How different policy scenarios impact <span class="span-blue" rv-text="g.current_indicator | long"></span>
+              </h3>
+            </div>
+
+            <div class="panel-body">
+              <div id="scenarios-graph" class="chart-div"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-4">
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                How fuel-tax recycling to <span class="span-blue" rv-text="g.current_scenario | long"></span> impacts different indicators
+              </h3>
+            </div>
+
+            <div class="panel-body">
+              <div id="indicators-graph" class="chart-div"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-4">
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                How fuel-tax recycling to <span class="span-blue" rv-text="g.current_scenario | long"></span> impacts <span class="span-blue" rv-text="g.current_indicator | long"></span> in each country
+              </h3>
+            </div>
+
+            <div class="panel-body">
+              <div id="countries-graph" class="chart-div"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ol class="joyride-list" data-joyride>
+      <li data-text="Step-by-Step" data-options="prev_button: false;next_button: false">
+        <h4>Welcome!</h4>
+
+        <p>Click 'Step-by-Step' for suggestions on how to use visualisation.</p>
+
+        <a href="#" class="small button joyride-next-tip">Step-by-step</a>
+        <a id="close-guide-button" class="small button joyride-close-tip custom-joyride-button">Visualisation</a>
+      </li>
+
+      <li data-id="scenario-choice" data-text="Next" data-text="End" data-options="tip_location: right;">
+        <p>Click here to select a scenario</p>
+      </li>
+
+      <li data-id="indicator-choice" data-text="Next" data-options="tip_location: right">
+        <p>Click here to select a indicator</p>
+      </li>
+
+      <li data-id="country-choice" data-text="Next" data-options="tip_location: right">
+        <p>Click here to select a country</p>
+      </li>
+
+      <li data-id="time-marker-line" data-text="Next" data-options="tip_location: top">
+        <p>Green (red) indicates simulation line is above (below) reference line</p>
+      </li>
+
+      <li data-id="time-marker-line" data-text="Next" data-options="tip_location: left">
+        <p>Slide line to change the year</p>
+      </li>
+
+      <li data-id="bdg.exp" data-class="custom so-awesome" data-options="tip_location: top" data-text="Next">
+        <p>Click on any bar to select new scenario for visualisation</p>
+      </li>
+
+      <li data-id="edu" data-class="custom so-awesome" data-options="tip_location: top" data-text="Next">
+        <p>Click on any bar to select new indicator for visualisation</p>
+      </li>
+
+      <li data-id="bol" data-class="custom so-awesome" data-options="tip_location: top" data-text="Next">
+        <p>Click on any bar to select new country for visualisation</p>
+      </li>
+
+      <li data-id="guide" data-class="custom so-awesome" data-options="tip_location: left" data-text="End">
+        <p>Click here to repeat this guide</p>
+      </li>
+    </ol>
+  </body>
+
+  <script src="./javascripts/rivets-config.js"></script>
+  <script data-main="./javascripts/main" src="./lib/requirejs/require.js"></script>
+</html>

@@ -1,0 +1,12 @@
+node_modules
+
+.DS_Store
+*~
+npm-debug.log*
+*.log
+
+# exclude in master. BUT
+# include in gh-pages
+#
+dist/javascripts
+dist/lib

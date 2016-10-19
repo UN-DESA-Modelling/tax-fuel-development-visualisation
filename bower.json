@@ -1,0 +1,15 @@
+{
+  "name": "map",
+  "private": true,
+  "dependencies": {
+    "requirejs": "latest",
+    "d3": "v3.5.17",
+    "jquery": "2.2.4",
+    "rivets": "0.8.1",
+    "bootstrap":  "3.3.5",
+    "fontawesome": "4.6.3",
+    "js-extras":  "git://github.com/svexican/js-extras.git#latest",
+    "web-extras":  "git://github.com/svexican/web-extras.git#latest",
+    "foundation": "5.5.3"
+  }
+}

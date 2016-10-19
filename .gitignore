@@ -8,5 +8,5 @@ npm-debug.log*
 # exclude in master. BUT
 # include in gh-pages
 #
-dist/javascripts
+#dist/javascripts
 dist/lib

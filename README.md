@@ -8,7 +8,7 @@ You can find a running version of this
 Please read through the
 [presentation](https://un-desa-modelling.github.io/tax-fuel-development-presentation/) for
 this visualisation and
-[supplementary material](https://github.com/UN-DESA-Modelling/tax-fuel-development-visualisation).
+[supplementary material](https://github.com/UN-DESA-Modelling/tax-fuel-development-supplementary).
 
 ## Contributors
 Due to a much needed cleanup in the repository, credit on some HTML/CSS

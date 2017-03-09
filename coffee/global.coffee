@@ -79,7 +79,6 @@ define ['jquery'], ($) ->
             param:   'year'
             x_vars:  ['year']
 
-
       scenarios_graph:
         draw_function: (func, action) ->
           func
@@ -88,7 +87,6 @@ define ['jquery'], ($) ->
             param:   'scenario'
             x_vars:  _g.scenarios.map (e) -> e['scn']
 
-
       indicators_graph:
         draw_function: (func, action) ->
           func
@@ -96,7 +94,6 @@ define ['jquery'], ($) ->
             action:  action
             param:   'indicator'
             x_vars:  _g.indicators.map (e) -> e['ind']
-
 
       countries_graph:
         draw_function: (func, action) ->

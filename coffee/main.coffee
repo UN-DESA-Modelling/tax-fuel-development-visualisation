@@ -47,11 +47,9 @@ require [
     this.each () ->
       this.parentNode.appendChild this
 
-
   _g.reload_graphs = (action = 'update') ->
     for k,v of _g.graphs
       _g.graphs[k].draw_function bar.draw, action
-
 
   _g.click_focus = (d, id, param) ->
     graph.clear id
@@ -59,8 +57,7 @@ require [
     $("#selectors select[name=#{ param }]").val d[param]
     $('#selectors').submit()
 
-    area.move_time_mark d, d['value']
-
+    area.move_time_mark d, d['value'] * 10000
 
   d3.csv _g.data_file, (db) ->
     _g.indicators = (db.map (row) -> { ind: row['ind'], indicator: _g.details[row['ind']] }).unique_p 'ind'

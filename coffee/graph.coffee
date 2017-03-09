@@ -2,7 +2,6 @@ define ['d3'], (d3) ->
   clear = (id) ->
     d3.select("##{ id }-graph svg").remove()
 
-
   tick_format = (v,m) ->
     t = v*10000
 
@@ -10,7 +9,6 @@ define ['d3'], (d3) ->
       return t.toFixed(0)
     else
       return t.toFixed(1)
-
 
   create_frame = (data, y_range, size) ->
     x = d3.time.scale()
@@ -37,7 +35,6 @@ define ['d3'], (d3) ->
       y: y
       yAxis: yAxis
 
-
   set_axis = (container, xAxis, dx, yAxis, dy) ->
     container.append 'g'
       .attr
@@ -52,7 +49,6 @@ define ['d3'], (d3) ->
         transform: "translate(#{ dx }, 0)"
 
       .call yAxis
-
 
   draw = (id) ->
     svg = d3.select("##{ id }-graph").append 'svg'
@@ -71,7 +67,6 @@ define ['d3'], (d3) ->
 
     return container
 
-
   return graph =
     clear:    clear
     draw:     draw
@@ -79,4 +74,4 @@ define ['d3'], (d3) ->
 
     tick_format: tick_format
 
-    create_frame:     create_frame
+    create_frame: create_frame

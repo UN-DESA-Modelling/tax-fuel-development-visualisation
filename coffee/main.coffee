@@ -57,8 +57,7 @@ require [
     $("#selectors select[name=#{ param }]").val d[param]
     $('#selectors').submit()
 
-    area.move_time_mark d, d['value']
-
+    area.move_time_mark d, d['value'] * 10000
 
   d3.csv _g.data_file, (db) ->
     _g.indicators = (db.map (row) -> { ind: row['ind'], indicator: _g.details[row['ind']] }).unique_p 'ind'

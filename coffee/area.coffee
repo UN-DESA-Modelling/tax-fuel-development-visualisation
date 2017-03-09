@@ -93,7 +93,7 @@ define ['d3', 'graph', 'global'], (d3, graph, _g) ->
       b = source[1].find (e) ->
         e.date.getFullYear() is _g.current_year
 
-      area.move_time_mark d, (b['value'] - v['value'])
+      area.move_time_mark d, ((v['value'] - b['value']) / (b['value'])) * 100
 
 
     click = (it) ->

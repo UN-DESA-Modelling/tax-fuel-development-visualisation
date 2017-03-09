@@ -6,7 +6,7 @@ define ['d3', 'data', 'graph'], (d3, data, graph) ->
     param    = opts.param
 
     width    = $("##{ id }-graph").width() - 50
-    height   = _g.base_graph.height() - 15
+    height   = _g.base_graph.height() - 20
 
     sources  = data
       .pluck  _g.queries[param], param
@@ -53,7 +53,7 @@ define ['d3', 'data', 'graph'], (d3, data, graph) ->
       d3.selectAll "##{ id } .axis"
         .remove()
 
-      d3.selectAll "##{ id } rect"
+      d3.selectAll "##{ id } .bar-group"
         .remove()
 
       container = d3.select "g##{ id }"
@@ -98,56 +98,63 @@ define ['d3', 'data', 'graph'], (d3, data, graph) ->
 
       .text (d) -> _g.subtitles[param]
 
-    container.selectAll '.focus'
-        .data sources
-      .enter().append 'rect'
-        .attr
-          id: (d) -> d[param]
-          class:  'bar'
+    bar = container.selectAll '.bar-group'
+      .data sources
+      .enter()
+      .append 'g'
+      .attr
+        class: 'bar-group'
 
-          width:
-            if x_vars.length is 1
-              width * 0.5
-            else
-              (width / x_vars.length) - 5
+    bar.append 'rect'
+      .attr
+        id: (d) -> d[param]
+        class:  'bar'
 
-          height: (d) -> Math.abs factorise d['value'], highest, height / 2
+        width:
+          if x_vars.length is 1
+            width * 0.5
+          else
+            (width / x_vars.length) - 5
 
-          x: (d) ->
-            if param? and d[param]
-              x(_g.details[d[param]]) + 5
-            else
-              width * 0.25
+        height: (d) -> Math.abs factorise d['value'], highest, height / 2
 
-          y: (d) -> pick_y d, highest, height / 2
+        x: (d) ->
+          if param? and d[param]
+            x(_g.details[d[param]]) + 5
+          else
+            width * 0.25
 
-          fill: (d) ->
-            if d[param] in _g.current_assets then _g.blue else _g.grey
+        y: (d) -> pick_y d, highest, height / 2
 
-          "fill-opacity": 0.5
+        fill: (d) ->
+          if d[param] in _g.current_assets then _g.blue else _g.grey
 
-          stroke: (d) ->
-            if d[param] in _g.current_assets then _g.blue else _g.grey
+        "fill-opacity": 0.5
 
-          "stroke-opacity": 0.3
+        stroke: (d) ->
+          if d[param] in _g.current_assets then _g.blue else _g.grey
 
-        .on
-          'click': (d) -> _g.click_focus d, id, param
+        "stroke-opacity": 0.3
+
+      .on
+        'click': (d) -> _g.click_focus d, id, param
 
       d3.selectAll('text').moveToFront();
 
+    # bar.append 'text'
+    #   .text (d,i) -> d['value']
+    #   .attr
+    #     y: (d) -> pick_y(d, highest, height / 2) + 10
 
   factorise = (value, highest_value, height) ->
     return 0 if highest_value is 0
 
     value * (height / highest_value)
 
-
   pick_y = (d, highest_value, height) ->
     c = factorise(d['value'], highest_value, height)
 
     return if c < 0 then height else height - Math.abs(c)
-
 
   wrap = (text, width) ->
     text.each ->

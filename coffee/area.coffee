@@ -8,7 +8,6 @@ define ['d3', 'graph', 'global'], (d3, graph, _g) ->
 
   x = y = null
 
-
   make_frame = (source0, source1) ->
     y_min = d3.min Array::concat(d3.min(source0, (d) -> d['value']), d3.min(source1, (d) -> d['value']))
     y_max = d3.max Array::concat(d3.max(source0, (d) -> d['value']), d3.max(source1, (d) -> d['value']))
@@ -30,7 +29,6 @@ define ['d3', 'graph', 'global'], (d3, graph, _g) ->
     container = graph.draw 'area'
 
     graph.set_axis container, frame.xAxis, 0, frame.yAxis, height
-
 
   move_time_mark = (d, dz) ->
     ddate = d.date or (new Date("#{ _g.current_year }/01/01"))
@@ -89,11 +87,11 @@ define ['d3', 'graph', 'global'], (d3, graph, _g) ->
           .attr 'year', d.date.getFullYear()
 
 
-      v = source[0].filter((e) ->
-        e.date.getFullYear() is _g.current_year).first()
+      v = source[0].find (e) ->
+        e.date.getFullYear() is _g.current_year
 
-      b = source[1].filter((e) ->
-        e.date.getFullYear() is _g.current_year).first()
+      b = source[1].find (e) ->
+        e.date.getFullYear() is _g.current_year
 
       area.move_time_mark d, (b['value'] - v['value'])
 
@@ -115,7 +113,6 @@ define ['d3', 'graph', 'global'], (d3, graph, _g) ->
 
       .on 'mousemove', -> mousemove this
       .on 'click',     -> click this
-
 
   draw = (query) ->
     graph.clear 'area'
@@ -174,7 +171,6 @@ define ['d3', 'graph', 'global'], (d3, graph, _g) ->
         'text-anchor': 'middle'
 
       .text (d) -> _g.details[d[0]['indicator']]
-
 
   return area =
     draw: draw

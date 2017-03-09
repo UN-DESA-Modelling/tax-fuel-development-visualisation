@@ -18,7 +18,6 @@ define ['d3'], (d3) ->
 
     return a
 
-
   csv_query = (source, country, scenario, indicator) ->
     source0 = source1 = null
 
@@ -38,7 +37,6 @@ define ['d3'], (d3) ->
 
     return [source0, source1]
 
-
   reformat = (d) ->
     o = []
 
@@ -54,32 +52,33 @@ define ['d3'], (d3) ->
 
     return o
 
-
   pluck = (query, param) ->
     query.map (q) ->
       result = {}
       o = {}
 
-      if param != 'year'
+      if param isnt 'year'
         o =
-          obj:  q[0].filter((i) -> i['date'].getFullYear() is _g.current_year).first()
-          base: q[1].filter((i) -> i['date'].getFullYear() is _g.current_year).first()
+          obj:  q[0].find (i) -> i['date'].getFullYear() is _g.current_year
+          base: q[1].find (i) -> i['date'].getFullYear() is _g.current_year
+
       else
         o =
-          obj:  query[0].filter((i) -> i['date'].getFullYear() is _g.current_year).first()
-          base: query[1].filter((i) -> i['date'].getFullYear() is _g.current_year).first()
+          obj:  query[0].find (i) -> i['date'].getFullYear() is _g.current_year
+          base: query[1].find (i) -> i['date'].getFullYear() is _g.current_year
 
       b = o['base']['value']
-      result['value'] = (o['obj']['value'] - b) / (b * 100)
-      result[param] = o['obj'][param]
-      return result
+      v = o['obj']['value']
 
+      result['value'] = (v-b) / (b * 100)
+      result[param] = o['obj'][param]
+
+      return result
 
   ignored_asset = (x) ->
     e = if (typeof x is 'string') then x else ((x.indicator) or (x.scenario) or (x.country))
 
     return ((e in _g.ignored_indicators) or (e in _g.ignored_scenarios) or (e in _g.ignored_countries))
-
 
   return data =
     csv_query:      csv_query

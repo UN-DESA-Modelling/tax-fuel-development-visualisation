@@ -47,11 +47,9 @@ require [
     this.each () ->
       this.parentNode.appendChild this
 
-
   _g.reload_graphs = (action = 'update') ->
     for k,v of _g.graphs
       _g.graphs[k].draw_function bar.draw, action
-
 
   _g.click_focus = (d, id, param) ->
     graph.clear id

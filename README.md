@@ -1,15 +1,15 @@
 # tax-fuel-development-visualisation
 
-This visualisation is part of the [UN-DESA Modelling Tools](https://un-desa-modelling.github.io/).
+This visualisation is part of the [UN Modelling Tools](https://un-modelling.github.io/).
 
 You can find a running version of this visualisation
-[here](https://un-desa-modelling.github.io/tax-fuel-development-visualisation/).
+[here](https://un-modelling.github.io/tax-fuel-development-visualisation/).
 
 Please read through the
-[presentation](https://un-desa-modelling.github.io/tax-fuel-development-presentation/).
+[presentation](https://un-modelling.github.io/tax-fuel-development-presentation/).
 
 There is valuable supplementary material for this simulation
-[here](https://github.com/UN-DESA-Modelling/tax-fuel-development-supplementary/).
+[here](https://github.com/un-modelling/tax-fuel-development-supplementary/).
 
 ## Simulation
 
